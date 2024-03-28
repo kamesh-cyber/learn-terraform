@@ -10,4 +10,6 @@ status=$(terraform workspace list | grep -E "${tfworkspaceName}\$")
 if [ $? -eq 0 ]; then
     # If the workspace exists, select it
     terraform workspace select "${tfworkspaceName}"
+else
+  terraform workspace new "${tfworkspaceName}"
 fi

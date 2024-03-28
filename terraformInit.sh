@@ -15,3 +15,4 @@ else
   echo "create new workspace"
   terraform workspace new "${tfworkspaceName}"
 fi
+terraform init -no-color

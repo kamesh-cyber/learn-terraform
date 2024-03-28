@@ -86,4 +86,20 @@ jobs:
       # On push to "master", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      run: terraform apply
+      run: terraform apply -auto-approve -input=false
+    
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4.3.1
+      with:
+      # Artifact name
+        name: test.txt
+      # A file, directory or wildcard pattern that describes what to upload
+        path: ./test.txt
+      # The desired behavior if no files are found using the provided path.
+
+        if-no-files-found: error
+      # Duration after which artifact will expire in days. 0 means using default retention.
+      # Minimum 1 day. Maximum 90 days unless changed from the repository settings page.
+        retention-days: 1
+        overwrite: true
+          

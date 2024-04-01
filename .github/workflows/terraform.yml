@@ -101,15 +101,6 @@ jobs:
           plan_id: ${{steps.submit_plan.outputs.plan_id}}
           timeout_seconds: 600
 
-    # Snip: send a Slack DM asking somebody to visit `steps.submit_plan.outputs.approval_prompt_url` to approve
-
-    - name: Wait for approval
-      uses: jbergknoff/github-action-wait-for-terraform-plan-approval@v1
-      with:
-        command: wait
-        plan_id: ${{steps.submit_plan.outputs.plan_id}}
-        timeout_seconds: 600
-
       # On push to "master", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply

@@ -91,13 +91,16 @@ jobs:
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false ./terraform.out -no-color
     
+    - name: Terraform Output
+      run: terraform output -json > token.json
+    
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
       # Artifact name
-        name: token.txt
+        name: token.json
       # A file, directory or wildcard pattern that describes what to upload
-        path: ./token.txt
+        path: ./token.json
       # The desired behavior if no files are found using the provided path.
 
         if-no-files-found: error

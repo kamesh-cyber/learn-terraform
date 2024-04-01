@@ -15,7 +15,7 @@ resource "null_resource" "generate_token"{
 
 resource "local_file" "generate_token"{
     filename = "token.txt"
-    content = null_resource.generate_token
+    content = "${null_resource.generate_token}"
     file_permission = 0700
   
 }

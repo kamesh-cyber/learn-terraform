@@ -12,3 +12,10 @@ resource "null_resource" "generate_token"{
         command = "echo ${var.token}"
     }
 }
+
+resource "local_file" "generate_token"{
+    filename = "token.txt"
+    content = null_resource.generate_token
+    file_permission = 0700
+  
+}

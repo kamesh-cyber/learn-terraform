@@ -69,9 +69,9 @@ jobs:
 
     
     - name: Vault Login
-      uses: hashicorp/vault-action@v2
+      uses: kamesh-cyber/Vault-Login@main
       with:
-        url: ${{ vars.VAULT_URL}}
+        addr: ${{ vars.VAULT_URL}}
         token: ${{ secrets.VAULT_TOKEN }}
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform

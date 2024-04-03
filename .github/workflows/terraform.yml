@@ -55,7 +55,6 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    container: hashicorp/vault
     environment: production
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -70,10 +69,11 @@ jobs:
 
     
     - name: Vault Login
-      uses: kamesh-cyber/Vault-Login@main
+      uses: hashicorp/vault-action@v2
       with:
-        addr: ${{ vars.VAULT_URL}}
+        url: ${{ vars.VAULT_URL}}
         token: ${{ secrets.VAULT_TOKEN }}
+        secrets: secret/actions_secret/token token
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -91,7 +91,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id : plan
-      run: terraform plan -var-file deve.tfvars -input=false -out=./terraform.out
+      run: terraform plan -var token=${token} -input=false -out=./terraform.out
       # On push to "master", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply

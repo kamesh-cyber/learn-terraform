@@ -101,6 +101,14 @@ jobs:
       id : plan
       run: terraform plan -var token=${token} -input=false -out=./terraform.out
       # On push to "master", build or change infrastructure according to Terraform configuration files
+
+    - name: Wait for Approval
+    
+      uses: trstringer/manual-approval@v1
+      with:
+        secret: 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
+        approvers: kamesh-cyber
+        minimum-approvals: 1
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false ./terraform.out -no-color

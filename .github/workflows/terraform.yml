@@ -78,6 +78,7 @@ jobs:
     name: terraform
     runs-on: ubuntu-latest
     environment: production
+    needs: vault
 
     steps:
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token

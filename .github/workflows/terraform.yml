@@ -68,7 +68,7 @@ jobs:
       with:
         url: ${{ vars.VAULT_URL}}
         token: ${{ secrets.VAULT_TOKEN }}
-        secrets: secret/data/ci
+        secrets: secret/data ci | outVar
      
   terraform: 
     name: terraform

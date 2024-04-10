@@ -70,10 +70,12 @@ jobs:
         token: ${{ secrets.VAULT_TOKEN }}
      
   terraform: 
-    name: terraform
+    name: terraform    
     runs-on: ubuntu-latest
     environment: production
     needs: vault
+    outputs:
+      file: ${{ steps.set-value.outputs.file }}
 
     steps:
 
@@ -104,7 +106,7 @@ jobs:
       run: terraform apply -auto-approve -input=false ./terraform.out -no-color
     
     - name: Terraform Output
-      run: terraform output -json > token.json
+      run: terraform output -json >> "$GITHUB_OUTPUT"
   upload-artifact:
     name: upload-artifact
     runs-on: ubuntu-latest
@@ -116,7 +118,7 @@ jobs:
       # Artifact name
         name: token.json
       # A file, directory or wildcard pattern that describes what to upload
-        path: ./token.json
+        path: ${{ steps.terraform.outputs.file }}
       # The desired behavior if no files are found using the provided path.
 
         if-no-files-found: error

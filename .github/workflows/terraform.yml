@@ -68,6 +68,7 @@ jobs:
       with:
         url: ${{ vars.VAULT_URL}}
         token: ${{ secrets.VAULT_TOKEN }}
+        secrets: secret/data/ci
      
   terraform: 
     name: terraform
@@ -75,7 +76,7 @@ jobs:
     environment: production
     needs: vault
     outputs:
-      file: ${{ steps.set-value.outputs.file }}
+      file: ${{ steps.create.outputs.file }}
 
     steps:
 

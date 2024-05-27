@@ -74,7 +74,7 @@ jobs:
     name: terraform
     runs-on: ubuntu-latest
     environment: production
-    needs: vault
+    # needs: vault
     outputs:
       file: ${{ steps.create.outputs.file }}
 
